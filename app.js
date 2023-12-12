@@ -14,8 +14,29 @@ canvas.height = 800
 // context.strokeRect(50, 50, 100, 200);
 // contextPathEx();
 // contextMoveLineEx();
+// drawHouse();
 
-drawHouse();
+drawPeople();
+function drawPeople() {
+  context.fillRect(200, 200, 15, 100) // 왼쪽팔
+  context.fillRect(295, 200, 15, 100) // 오른쪽팔
+  context.fillRect(225, 200, 60, 200) // 몸통
+
+  context.arc(255, 145, 50, 0, 2*Math.PI); // start->end point 우측부터 시계방향으로 0(2.0), 0.5, 1.0, 1.5
+  context.fill()
+  
+  context.beginPath();
+  context.arc(275, 125, 5, Math.PI, 2*Math.PI); 
+  context.arc(235, 125, 5, Math.PI, 2*Math.PI); 
+  context.fillStyle = "white"
+  context.fill()
+
+  context.beginPath();
+  context.arc(255, 165, 15, Math.PI, 2*Math.PI); 
+  context.fillStyle = "white"
+  context.fill()
+
+}
 
 /**
  * 집 그리기 예제
@@ -92,6 +113,6 @@ function contextPathEx() {
   context.fillStyle = "red"
   context.fill(); 
   // 전부 빨간색이 되는데 이유는 모든 rect가 같은 경로의 일부이기 때문이다.
-  // 같은 결로 위에 많은 선들을 그리고, 해당 스타일중 하나만 ㅂ젼경해도 모든 경로에 영향을 미치게 된다
+  // 같은 결로 위에 많은 선들을 그리고, 해당 스타일중 하나만 변경해도 모든 경로에 영향을 미치게 된다
 
 }
