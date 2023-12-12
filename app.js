@@ -9,21 +9,42 @@ canvas.height = 800
  * canvas가 시작 좌표 위치를 기준으로 x축,y축의 시작위치와 사각형의 높이,너비를 세팅한다.
  * canvas의 좌측 상단 꼭지점이 x(가로),y(세로) 축의 시작위치가 된다.
  */
+
 // context.fillRect(50, 50, 100, 200) // 좌표 50,50에 너비100 높이200 사각형을 채운다.
 // context.strokeRect(50, 50, 100, 200);
-
 // contextPathEx();
-contextMoveLineEx();
+// contextMoveLineEx();
+
+drawHouse();
 
 /**
+ * 집 그리기 예제
+ */
+function drawHouse() {
+  context.fillRect(200, 200, 50, 200); //좌측벽
+  context.fillRect(400, 200, 50, 200); //우측벽
+
+  context.lineWidth = 2; // 선 두께 지정 (선 두께를 먼저 지정하고 stroke 해줘야함 )
+  context.strokeRect(300, 300, 50, 100); //문
+
+  context.fillRect(250, 200, 150, 20) //천장
+  
+  context.moveTo(200, 200) // 지붕을 위해 좌측벽 최상단으로 커서 이동
+  context.lineTo(325, 100) // 200 + 50 + 400 = (650/2) 중앙에서 100만큼 위의 좌표 위치로 선긋기 (100만큼 내려가야함 초기좌표가 Y축이 일반적인 좌표 진행방향인↗ 이 아니라 ↘이기 때문)
+  context.lineTo(450, 200) // 450 , 200(벽높이)에 선긋기 (200만큼 내려가야함 ) 
+  context.fill();
+}
+
+/**
+ * Y축은 일반적인 좌표 진행방향인↗ 이 아니라 ↘이다.
  * moveTo() : 선을 긋지않고 path좌표 이동
  * lineTo() : 선을 그으면서 path좌표 이동
  */
 function contextMoveLineEx () {
   context.moveTo(50, 50); //path를 50,50 좌표(경로)로 이동
 
-  context.lineTo(150, 50); //50,50애서 50,250 경로로 선을 긋도록 준비한다.
-  context.lineTo(150, 150); //50,50애서 50,250 경로로 선을 긋도록 준비한다.
+  context.lineTo(150, 50); //50,50애서 150, 50 경로로 선을 긋도록 준비한다.
+  context.lineTo(150, 150); //50,250애서 50, 250 경로로 선을 긋도록 준비한다.
   context.lineTo(50, 150); //50,50애서 50,250 경로로 선을 긋도록 준비한다.
   context.lineTo(50, 50); //50,50애서 50,250 경로로 선을 긋도록 준비한다.
 
