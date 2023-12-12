@@ -12,7 +12,25 @@ canvas.height = 800
 // context.fillRect(50, 50, 100, 200) // 좌표 50,50에 너비100 높이200 사각형을 채운다.
 // context.strokeRect(50, 50, 100, 200);
 
-contextPathEx();
+// contextPathEx();
+contextMoveLineEx();
+
+/**
+ * moveTo() : 선을 긋지않고 path좌표 이동
+ * lineTo() : 선을 그으면서 path좌표 이동
+ */
+function contextMoveLineEx () {
+  context.moveTo(50, 50); //path를 50,50 좌표(경로)로 이동
+
+  context.lineTo(150, 50); //50,50애서 50,250 경로로 선을 긋도록 준비한다.
+  context.lineTo(150, 150); //50,50애서 50,250 경로로 선을 긋도록 준비한다.
+  context.lineTo(50, 150); //50,50애서 50,250 경로로 선을 긋도록 준비한다.
+  context.lineTo(50, 50); //50,50애서 50,250 경로로 선을 긋도록 준비한다.
+
+  context.stroke(); // 해당 함수를 호출함으로써 비로서 선이 출력된다.
+  context.fill(); // 채우기
+}
+
 /**
  * 경로 구성 예제
  * short-cut 형태의 fillRect와 strokeRect함수의 기본 분리 함수
