@@ -16,27 +16,33 @@
    -->
   <canvas>
   </canvas>
-  <div >
+  <div>
+
     <div>
-      <div style="float:left;">
-        <input id="color" type="color" style="display:flex; height: 325px; margin:auto; " >
+      <div style="width:148px">
+        <div style="float:left;">
+          <input id="color" type="color" style="display:flex; height: 325px; margin:auto; " >
+        </div>
+        <div id="colors" style="float:right;">
+        </div>
       </div>
-      <div id="colors" style="float:right;">
+      
+      <div style="clear:both; width:148px">
+        <button id="mode-btn" style="width:47px">Fill</button>
+        <button id="init-btn">Init</button>
+        <button id="eraser-btn">Eraser</button>
       </div>
-    </div>
-
-    <div style="clear:both;">
-      <button id="mode-btn">Fill</button>
-      <button id="init-btn">Init</button>
-      <button id="eraser-btn">Eraser</button>
-    </div>
-
+    <br>
     <div style="display: inline;">
-      <input id="line-width" type="range" min="1" max="10" value="1" step="0.5"> <!-- 선의 두께 조절을 할 input : type range = 볼륨조절 형태의 가로 스크롤이 생긴다 -->
-      <p id="line-width-value" style="text-align: center;"></p>
+      <input style="width:103px;" id="line-width" type="range" min="1" max="10" value="1" step="0.5"> <!-- 선의 두께 조절을 할 input : type range = 볼륨조절 형태의 가로 스크롤이 생긴다 -->
+      <!-- <p id="line-width-value" style="text-align: center; width:148px;"></p> -->
+      <input id="line-width-value" type="number" min="1" max="10" step="0.5" style="text-align: center; width:35px;" >
     </div>
-
   </div>
+  <br>
+
+</div>
+  
   <!-- <script src="canvasEx.js"></script> -->
   <!-- <script src="drawLineEx.js"></script> -->
   <script src="paintBoard.js"></script>
