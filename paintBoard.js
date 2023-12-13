@@ -3,6 +3,46 @@ const lineWidth = document.getElementById("line-width");
 const lineWidthValue = document.getElementById("line-width-value");
 const canvas = document.querySelector("canvas"); 
 const context = canvas.getContext("2d")
+const colors = [
+  "#1abc9c",
+  "#3498db",
+  "#34495e",
+  "#27ae60",
+  "#8e44ad",
+  "#f1c40f",
+  "#e74c3c",
+  "#95a5a6",
+  "#d35400",
+  "#bdc3c7",
+  "#2ecc71",
+  "#e67e22",
+]
+colors.forEach(element => {
+  const colorsDiv = document.getElementById("colors") 
+  const colorDiv = document.createElement("div")
+  console.log(colorDiv)
+  // colorDiv.className = "color-option"
+  // colorDiv.style.cssText = `background-color : ${element};`
+  // colorDiv.dataset.color = element
+  colorDiv.setAttribute("class", "color-option")
+  colorDiv.setAttribute("style", `background-color : ${element};`)
+  colorDiv.setAttribute("data-color", element)
+  colorsDiv.appendChild(colorDiv)
+});
+
+
+const colorOptions = document.getElementsByClassName("color-option");
+Array.from(colorOptions).forEach(color => color.addEventListener("click", onColorClick))
+
+/**
+ * 색상 클릭 이벤트 콜백 함수
+ */
+function onColorClick(event) {
+  const dataColor = event.target.dataset.color
+  context.fillStyle = dataColor
+  context.strokeStyle = dataColor
+  color.value =  dataColor // input 색상 선택기에 선택된 색상 출력
+}
 
 canvas.width = 800
 canvas.height = 800

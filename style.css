@@ -11,3 +11,11 @@ body {
   /* flext에서 작동하는 수직 정렬 */
   align-items: center; 
 }
+
+.color-option {
+  display: flex;
+  width: 50px;
+  height: 25px;
+  margin:auto;
+  cursor: pointer;
+}
