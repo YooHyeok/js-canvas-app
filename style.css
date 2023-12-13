@@ -13,9 +13,9 @@ body {
 }
 
 .color-option {
-  display: flex;
-  width: 50px;
+  /* display: flex; */
+  width: 83px;
   height: 25px;
-  margin:auto;
+  /* margin:auto; */
   cursor: pointer;
 }
