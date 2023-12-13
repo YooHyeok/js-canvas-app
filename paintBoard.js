@@ -10,9 +10,9 @@ const context = canvas.getContext("2d")
 
 /* 선 굵기 초기 설정 */
 const lineWidth = document.getElementById("line-width");
-const lineWidthValue = document.getElementById("line-width-value");
+const lineWidthInput = document.getElementById("line-width-value");
 context.lineWidth = lineWidth.value // 초기 선굵기 세팅
-lineWidthValue.innerText = lineWidth.value  // 초기 선굵기 출력
+lineWidthInput.value = lineWidth.value  // 초기 선굵기 출력
 
 /* 색상 목록 - 태그 생성*/
 const colors = ["#000000", "#1abc9c", "#3498db", "#34495e", "#27ae60", "#8e44ad", "#f1c40f", "#e74c3c", "#95a5a6", "#d35400", "#bdc3c7", "#2ecc71", "#e67e22",]
@@ -131,9 +131,17 @@ function onMouseUp(event) {
  * @param {*} event 
  */
 function onLineWidthChange(event) {
+  console.dir()
+  const inputType = event.target.type
   const changeValue = event.target.value
   context.lineWidth = changeValue
-  lineWidthValue.innerText = changeValue
+  if(inputType === "range") {
+    lineWidthInput.value = changeValue
+    return
+  }
+  lineWidth.value = changeValue
+
+  
 }
 /**
  * 선, 채우기 색 변경
@@ -149,4 +157,5 @@ canvas.addEventListener("mousedown", onMouseDown) // 마우스를 눌를때 이�
 canvas.addEventListener("mouseup", onMouseUp) // 마우스를 눌렀다가 땔때 이벤트 발생 - click은 눌렀다가 땔때 발생
 canvas.addEventListener("mouseleave", onMouseUp) // 마우스가 캔버스를 떠났을 때에도 onMouseUp 함수 호출 (그리지않을것이므로)
 lineWidth.addEventListener("change", onLineWidthChange)
+lineWidthInput.addEventListener("change", onLineWidthChange)
 color.addEventListener("change", onColorChange)
