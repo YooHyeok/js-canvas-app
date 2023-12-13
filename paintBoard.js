@@ -1,3 +1,4 @@
+const modeBtn = document.getElementById("mode-btn");
 const color = document.getElementById("color");
 const lineWidth = document.getElementById("line-width");
 const lineWidthValue = document.getElementById("line-width-value");
@@ -17,10 +18,28 @@ const colors = [
   "#2ecc71",
   "#e67e22",
 ]
+let isFilling = false
+function onModeClick(event) {
+  if (isFilling) {
+    isFilling = false
+    modeBtn.innerText = "Fill"
+    return;
+  }
+  isFilling = true
+  modeBtn.innerText = "Draw"
+}
+modeBtn.addEventListener("click", onModeClick)
+
+function onCanvasClick() {
+  if (isFilling) {
+    context.fillRect(0, 0, 800, 800)
+    return;
+  }
+}
+
 colors.forEach(element => {
   const colorsDiv = document.getElementById("colors") 
   const colorDiv = document.createElement("div")
-  console.log(colorDiv)
   // colorDiv.className = "color-option"
   // colorDiv.style.cssText = `background-color : ${element};`
   // colorDiv.dataset.color = element
@@ -101,5 +120,6 @@ canvas.addEventListener("mousemove", onMouseMove)
 canvas.addEventListener("mousedown", onMouseDown) // 마우스를 눌를때 이벤트 발생 - click은 눌렀다가 땔때 발생
 canvas.addEventListener("mouseup", onMouseUp) // 마우스를 눌렀다가 땔때 이벤트 발생 - click은 눌렀다가 땔때 발생
 canvas.addEventListener("mouseleave", onMouseUp) // 마우스가 캔버스를 떠났을 때에도 onMouseUp 함수 호출 (그리지않을것이므로)
+canvas.addEventListener("click", onCanvasClick)
 lineWidth.addEventListener("change", onLineWidthChange)
 color.addEventListener("change", onColorChange)
