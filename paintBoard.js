@@ -1,42 +1,21 @@
-const modeBtn = document.getElementById("mode-btn");
-const color = document.getElementById("color");
+/* 캔버스 초기 설정 */
+const canvas = document.querySelector("canvas"); 
+const CANVAS_WIDTH = 876;
+const CANVAS_HEIGHT = 876;
+canvas.width = CANVAS_WIDTH
+canvas.height = CANVAS_HEIGHT
+
+/* 캔버스 CONTEXT */
+const context = canvas.getContext("2d")
+
+/* 선 굵기 초기 설정 */
 const lineWidth = document.getElementById("line-width");
 const lineWidthValue = document.getElementById("line-width-value");
-const canvas = document.querySelector("canvas"); 
-const context = canvas.getContext("2d")
-const colors = [
-  "#1abc9c",
-  "#3498db",
-  "#34495e",
-  "#27ae60",
-  "#8e44ad",
-  "#f1c40f",
-  "#e74c3c",
-  "#95a5a6",
-  "#d35400",
-  "#bdc3c7",
-  "#2ecc71",
-  "#e67e22",
-]
-let isFilling = false
-function onModeClick(event) {
-  if (isFilling) {
-    isFilling = false
-    modeBtn.innerText = "Fill"
-    return;
-  }
-  isFilling = true
-  modeBtn.innerText = "Draw"
-}
-modeBtn.addEventListener("click", onModeClick)
+context.lineWidth = lineWidth.value // 초기 선굵기 세팅
+lineWidthValue.innerText = lineWidth.value  // 초기 선굵기 출력
 
-function onCanvasClick() {
-  if (isFilling) {
-    context.fillRect(0, 0, 800, 800)
-    return;
-  }
-}
-
+/* 색상 목록 - 태그 생성*/
+const colors = ["#1abc9c", "#3498db", "#34495e", "#27ae60", "#8e44ad", "#f1c40f", "#e74c3c", "#95a5a6", "#d35400", "#bdc3c7", "#2ecc71", "#e67e22",]
 colors.forEach(element => {
   const colorsDiv = document.getElementById("colors") 
   const colorDiv = document.createElement("div")
@@ -49,13 +28,55 @@ colors.forEach(element => {
   colorsDiv.appendChild(colorDiv)
 });
 
-
+/* 색상 클릭시 색상 적용 */
 const colorOptions = document.getElementsByClassName("color-option");
 Array.from(colorOptions).forEach(color => color.addEventListener("click", onColorClick))
+
+
+/**
+ * 전체 지우기
+ */
+const initBtn = document.getElementById("init-btn"); //전체 지우기 버튼
+function onInitClick() {
+  context.fillStyle = "white"
+  context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
+}
+initBtn.addEventListener("click", onInitClick)
+
+/**
+ * 채우기, 그리기 버튼 전환 기능
+ */
+const modeBtn = document.getElementById("mode-btn"); // FILL/STROKE 모드 버튼
+let isFilling = false
+function onModeClick(event) {
+  if (isFilling) {
+    isFilling = false
+    modeBtn.innerText = "Fill"
+    return;
+  }
+  isFilling = true
+  modeBtn.innerText = "Draw"
+}
+modeBtn.addEventListener("click", onModeClick)
+
+/**
+ * 캔버스 클릭이벤트 콜백함수
+ * 캔버스 전체 배경 색을 채운한다.
+ * @returns 
+ */
+function onCanvasClick() {
+  if (isFilling) {
+    context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
+    return;
+  }
+}
+canvas.addEventListener("click", onCanvasClick) //캔버스 클릭시 백그라운드 색상 fill
+
 
 /**
  * 색상 클릭 이벤트 콜백 함수
  */
+const color = document.getElementById("color"); // 색상 선택기
 function onColorClick(event) {
   const dataColor = event.target.dataset.color
   context.fillStyle = dataColor
@@ -63,10 +84,6 @@ function onColorClick(event) {
   color.value =  dataColor // input 색상 선택기에 선택된 색상 출력
 }
 
-canvas.width = 800
-canvas.height = 800
-context.lineWidth = lineWidth.value
-lineWidthValue.innerText = lineWidth.value
 /**
  * 마우스 눌린상태에서는 그림을 그리고
  * 마우스를 땐 상태에서는 path 좌표만 이동시킨다.
@@ -120,6 +137,5 @@ canvas.addEventListener("mousemove", onMouseMove)
 canvas.addEventListener("mousedown", onMouseDown) // 마우스를 눌를때 이벤트 발생 - click은 눌렀다가 땔때 발생
 canvas.addEventListener("mouseup", onMouseUp) // 마우스를 눌렀다가 땔때 이벤트 발생 - click은 눌렀다가 땔때 발생
 canvas.addEventListener("mouseleave", onMouseUp) // 마우스가 캔버스를 떠났을 때에도 onMouseUp 함수 호출 (그리지않을것이므로)
-canvas.addEventListener("click", onCanvasClick)
 lineWidth.addEventListener("change", onLineWidthChange)
 color.addEventListener("change", onColorChange)
