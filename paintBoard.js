@@ -1,3 +1,4 @@
+const color = document.getElementById("color");
 const lineWidth = document.getElementById("line-width");
 const lineWidthValue = document.getElementById("line-width-value");
 const canvas = document.querySelector("canvas"); 
@@ -38,12 +39,27 @@ function onMouseUp(event) {
   isPainting = false;
   context.beginPath(); // 페인팅이 끝났으므로 path를 초기화해준다.
 }
+/**
+ * 선 두께 변경
+ * @param {*} event 
+ */
 function onLineWidthChange(event) {
-  context.lineWidth = event.target.value
-  lineWidthValue.innerText = event.target.value
+  const changeValue = event.target.value
+  context.lineWidth = changeValue
+  lineWidthValue.innerText = changeValue
+}
+/**
+ * 선, 채우기 색 변경
+ * @param {*} event 
+ */
+function onColorChange(event) {
+  const changeValue = event.target.value
+  context.strokeStyle = changeValue
+  context.fillStyle = changeValue
 }
 canvas.addEventListener("mousemove", onMouseMove)
 canvas.addEventListener("mousedown", onMouseDown) // 마우스를 눌를때 이벤트 발생 - click은 눌렀다가 땔때 발생
 canvas.addEventListener("mouseup", onMouseUp) // 마우스를 눌렀다가 땔때 이벤트 발생 - click은 눌렀다가 땔때 발생
 canvas.addEventListener("mouseleave", onMouseUp) // 마우스가 캔버스를 떠났을 때에도 onMouseUp 함수 호출 (그리지않을것이므로)
 lineWidth.addEventListener("change", onLineWidthChange)
+color.addEventListener("change", onColorChange)
