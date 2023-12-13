@@ -32,6 +32,16 @@ colors.forEach(element => {
 const colorOptions = document.getElementsByClassName("color-option");
 Array.from(colorOptions).forEach(color => color.addEventListener("click", onColorClick))
 
+/**
+ * 색상 클릭 이벤트 콜백 함수
+ */
+const color = document.getElementById("color"); // 색상 선택기
+function onColorClick(event) {
+  const dataColor = event.target.dataset.color
+  context.fillStyle = dataColor
+  context.strokeStyle = dataColor
+  color.value =  dataColor // input 색상 선택기에 선택된 색상 출력
+}
 
 /**
  * 전체 지우기
@@ -42,6 +52,18 @@ function onInitClick() {
   context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 }
 initBtn.addEventListener("click", onInitClick)
+
+/**
+ * 일반 지우기
+ */
+const eraserBtn = document.getElementById("eraser-btn")
+function onEraserClick() {
+  isFilling = false;
+  modeBtn.innerText = "Fill"
+  context.strokeStyle = "white"
+
+}
+eraserBtn.addEventListener("click", onEraserClick)
 
 /**
  * 채우기, 그리기 버튼 전환 기능
@@ -72,17 +94,6 @@ function onCanvasClick() {
 }
 canvas.addEventListener("click", onCanvasClick) //캔버스 클릭시 백그라운드 색상 fill
 
-
-/**
- * 색상 클릭 이벤트 콜백 함수
- */
-const color = document.getElementById("color"); // 색상 선택기
-function onColorClick(event) {
-  const dataColor = event.target.dataset.color
-  context.fillStyle = dataColor
-  context.strokeStyle = dataColor
-  color.value =  dataColor // input 색상 선택기에 선택된 색상 출력
-}
 
 /**
  * 마우스 눌린상태에서는 그림을 그리고
