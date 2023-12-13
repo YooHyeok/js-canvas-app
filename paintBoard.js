@@ -15,7 +15,7 @@ context.lineWidth = lineWidth.value // 초기 선굵기 세팅
 lineWidthValue.innerText = lineWidth.value  // 초기 선굵기 출력
 
 /* 색상 목록 - 태그 생성*/
-const colors = ["#1abc9c", "#3498db", "#34495e", "#27ae60", "#8e44ad", "#f1c40f", "#e74c3c", "#95a5a6", "#d35400", "#bdc3c7", "#2ecc71", "#e67e22",]
+const colors = ["#000000", "#1abc9c", "#3498db", "#34495e", "#27ae60", "#8e44ad", "#f1c40f", "#e74c3c", "#95a5a6", "#d35400", "#bdc3c7", "#2ecc71", "#e67e22",]
 colors.forEach(element => {
   const colorsDiv = document.getElementById("colors") 
   const colorDiv = document.createElement("div")
