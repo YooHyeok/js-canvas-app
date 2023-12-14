@@ -1,7 +1,7 @@
 /* 캔버스 초기 설정 */
 const canvas = document.querySelector("canvas"); 
-const CANVAS_WIDTH = 876;
-const CANVAS_HEIGHT = 876;
+const CANVAS_WIDTH = 875;
+const CANVAS_HEIGHT = 875;
 canvas.width = CANVAS_WIDTH
 canvas.height = CANVAS_HEIGHT
 
@@ -42,6 +42,22 @@ function onColorClick(event) {
   context.strokeStyle = dataColor
   color.value =  dataColor // input 색상 선택기에 선택된 색상 출력
 }
+
+const fileInput = document.getElementById("file")
+function onFileChange(event) {
+  const file = event.target.files[0]
+  const url = URL.createObjectURL(file)
+  const image = new Image() // <img src=""/>와 같다
+
+  image.src = url
+  console.dir(image)
+
+  image.onload = function() {
+    context.drawImage(image, 0, 0, image.width * (CANVAS_HEIGHT / image.height), CANVAS_HEIGHT)
+    fileInput.value = null
+  }
+}
+fileInput.addEventListener("change", onFileChange)
 
 /**
  * 전체 지우기
