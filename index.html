@@ -14,37 +14,28 @@
     브라우저화면에서 픽셀을 그릴수 있게 도와준다.
     javascript에서 접근한다.
    -->
+  <div id="colors" class="color-options">
+    <input id="color" type="color">
+  </div>
   <canvas>
   </canvas>
-  <div>
-
+  <div class="btns">
     <div>
-      <div style="width:148px">
-        <div style="float:left;">
-          <input id="color" type="color" style="display:flex; height: 325px; margin:auto; " >
-        </div>
-        <div id="colors" style="float:right;">
-        </div>
-      </div>
-      
-      <div style="clear:both; width:148px">
-        <button id="mode-btn" style="width:47px">Fill</button>
-        <button id="init-btn">Init</button>
-        <button id="eraser-btn">Eraser</button>
-      </div>
-    <br>
-    <div style="display: inline;">
-      <input style="width:103px;" id="line-width" type="range" min="1" max="10" value="1" step="0.5"> <!-- 선의 두께 조절을 할 input : type range = 볼륨조절 형태의 가로 스크롤이 생긴다 -->
-      <!-- <p id="line-width-value" style="text-align: center; width:148px;"></p> -->
-      <input id="line-width-value" type="number" min="1" max="10" step="0.5" style="text-align: center; width:35px;" >
+      <input id="line-width" style="width:130px; float: left;" type="range" min="1" max="10" value="1" step="0.5"> <!-- 선의 두께 조절을 할 input : type range = 볼륨조절 형태의 가로 스크롤이 생긴다 -->
+      <input id="line-width-value" style="width:35px; float: right;" type="number" min="1" max="10" step="0.5" >
     </div>
+    
+    <button id="mode-btn" >🪄 Fill</button>
+    <button id="init-btn">🗑️ Init</button>
+    <button id="eraser-btn">◽ Eraser</button>
+    
+    <label for="file" >
+      🖼️ Photo
+      <input type="file" id="file" accept="image/*" hidden> <!-- image 확장자만 가능 -->
+    </label>
+    <input type="text" id="text" placeholder="Typing & Dbl-Click :)"> <!-- image 확장자만 가능 -->
+    <button id="save"> 💾 Save Image</button>
   </div>
-  <br>
-  <input type="file" id="file" accept="image/*"> <!-- image 확장자만 가능 -->
-  <br>
-  <input type="text" id="text" placeholder="Write and then double click"> <!-- image 확장자만 가능 -->
-  <button id="save">Save Image</button>
-</div>
   
   <!-- <script src="canvasEx.js"></script> -->
   <!-- <script src="drawLineEx.js"></script> -->
