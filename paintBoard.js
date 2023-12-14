@@ -4,9 +4,10 @@ const CANVAS_WIDTH = 875;
 const CANVAS_HEIGHT = 875;
 canvas.width = CANVAS_WIDTH
 canvas.height = CANVAS_HEIGHT
-
 /* 캔버스 CONTEXT */
 const context = canvas.getContext("2d")
+context.lineCap = "round" // 커서모양? butt, round, square
+context.lineJoin = "round" // 꺽인선 모서리 bevel, round, miter
 
 /* 선 굵기 초기 설정 */
 const lineWidth = document.getElementById("line-width");
