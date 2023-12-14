@@ -1,7 +1,7 @@
 /* 캔버스 초기 설정 */
 const canvas = document.querySelector("canvas"); 
-const CANVAS_WIDTH = 875;
-const CANVAS_HEIGHT = 875;
+const CANVAS_WIDTH = 800;
+const CANVAS_HEIGHT = 800;
 canvas.width = CANVAS_WIDTH
 canvas.height = CANVAS_HEIGHT
 /* 캔버스 CONTEXT */
@@ -16,7 +16,7 @@ context.lineWidth = lineWidth.value // 초기 선굵기 세팅
 lineWidthInput.value = lineWidth.value  // 초기 선굵기 출력
 
 /* 색상 목록 - 태그 생성*/
-const colors = ["#000000", "#1abc9c", "#3498db", "#34495e", "#27ae60", "#8e44ad", "#f1c40f", "#e74c3c", "#95a5a6", "#d35400", "#bdc3c7", "#2ecc71", "#e67e22",]
+const colors = ["#000000", "#1abc9c", "#3498db", "#34495e", "#27ae60", "#8e44ad", "#f1c40f", "#e74c3c", "#95a5a6", "#d35400", "#2ecc71", "#e67e22",]
 colors.forEach(element => {
   const colorsDiv = document.getElementById("colors") 
   const colorDiv = document.createElement("div")
@@ -32,18 +32,17 @@ colors.forEach(element => {
 /**
  * 이미지 파일로 저장 기능
  * a태그를 생성하고, 생성한 상태에서 href속성에 이미지 url을 입력, download속성에 저장될 파일명을 입력한뒤
- * html에 따로 로드하지 않고 자바스크립트에서 click()함수를 통해 실행해버린다.
+ * html에 따로 렌더링하지 않고 자바스크립트에서 click()함수를 통해 실행해버린다.
  */
 const saveBtn = document.getElementById("save")
 function onSaveClick() {
-  const url = canvas.toDataURL() // canvas에 로드된 이미지를 base64로 인코딩된 url로 반환받는 메소드
-  const a = document.createElement("a")
+  const url = canvas.toDataURL() // canvas에 렌더링한 최종 이미지 작업물을 base64로 인코딩된 url로 반환받는 메소드
+  const a = document.createElement("a") // <a href = "" download = "저장될파일명.확장자"></a>
   a.href = url
   a.download = "draw.png"
   a.click();
   
 }
-// <a href = "" download></a> // 파일을 다운로드해준다
 saveBtn.addEventListener("click", onSaveClick)
 
 
