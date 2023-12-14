@@ -29,6 +29,24 @@ colors.forEach(element => {
   colorsDiv.appendChild(colorDiv)
 });
 
+/**
+ * 이미지 파일로 저장 기능
+ * a태그를 생성하고, 생성한 상태에서 href속성에 이미지 url을 입력, download속성에 저장될 파일명을 입력한뒤
+ * html에 따로 로드하지 않고 자바스크립트에서 click()함수를 통해 실행해버린다.
+ */
+const saveBtn = document.getElementById("save")
+function onSaveClick() {
+  const url = canvas.toDataURL() // canvas에 로드된 이미지를 base64로 인코딩된 url로 반환받는 메소드
+  const a = document.createElement("a")
+  a.href = url
+  a.download = "draw.png"
+  a.click();
+  
+}
+// <a href = "" download></a> // 파일을 다운로드해준다
+saveBtn.addEventListener("click", onSaveClick)
+
+
 /* 색상 클릭시 색상 적용 */
 const colorOptions = document.getElementsByClassName("color-option");
 Array.from(colorOptions).forEach(color => color.addEventListener("click", onColorClick))
@@ -67,7 +85,7 @@ canvas.addEventListener("dblclick", onDoubleClick)
 const fileInput = document.getElementById("file")
 function onFileChange(event) {
   const file = event.target.files[0]
-  const url = URL.createObjectURL(file)
+  const url = URL.createObjectURL(file) // 로컬서버 주소를 포함한 파일의 저장 경로를 만든다.
   const image = new Image() // <img src=""/>와 같다
   image.src = url
   image.onload = function() {
