@@ -43,15 +43,32 @@ function onColorClick(event) {
   color.value =  dataColor // input 색상 선택기에 선택된 색상 출력
 }
 
+/**
+ * 더블클릭 텍스트 입력기 
+ */
+const textInput = document.getElementById("text")
+function onDoubleClick(event) {
+  const text = textInput.value;
+  if (text !== "") {
+    context.save()
+    context.lineWidth = 1;
+    context.font = "48px serif"
+    // context.fillText(text, event.offsetX, event.offsetY)
+    context.strokeText(text, event.offsetX, event.offsetY)
+    context.restore() //최초 저장된 시점으로 돌아간다.
+  }
+}
+canvas.addEventListener("dblclick", onDoubleClick)
+
+/**
+ * 캔버스에 이미지 첨부
+ */
 const fileInput = document.getElementById("file")
 function onFileChange(event) {
   const file = event.target.files[0]
   const url = URL.createObjectURL(file)
   const image = new Image() // <img src=""/>와 같다
-
   image.src = url
-  console.dir(image)
-
   image.onload = function() {
     context.drawImage(image, 0, 0, image.width * (CANVAS_HEIGHT / image.height), CANVAS_HEIGHT)
     fileInput.value = null
