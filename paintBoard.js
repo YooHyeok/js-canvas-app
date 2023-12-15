@@ -101,8 +101,10 @@ fileInput.addEventListener("change", onFileChange)
 const initBtn = document.getElementById("init-btn"); //전체 지우기 버튼
 function onInitClick() {
   if(!confirm("현재까지 작업한 모든 내용이 초기화 됩니다. \n정말로 초기화 하시겠습니까?")) return;
+  context.save()
   context.fillStyle = "white"
   context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
+  context.restore() //최초 저장된 시점으로 돌아간다.
 }
 initBtn.addEventListener("click", onInitClick)
 
@@ -157,6 +159,7 @@ canvas.addEventListener("click", onCanvasClick) //캔버스 클릭시 백그라�
 function onMouseMove(event) {
   let pathX;
   let pathY
+  if (isPainting) {
   switch (event.type) {
     case "mousemove":
       pathX = event.offsetX;
@@ -168,12 +171,11 @@ function onMouseMove(event) {
       pathY = event.touches[0].clientY - canvas.offsetTop;
       break;
   }
-  if (isPainting) {
     context.lineTo(pathX, pathY);
     context.stroke();
     return
   }
-  context.moveTo(pathX, pathY);
+  // context.moveTo(pathX, pathY);
 }
 
 /* function onMouseMove(event) {
@@ -241,11 +243,11 @@ canvas.addEventListener("mousemove", onMouseMove)
 canvas.addEventListener("mousedown", onMouseDown) // 마우스를 눌를때 이벤트 발생 - click은 눌렀다가 땔때 발생
 canvas.addEventListener("mouseup", onMouseUp) // 마우스를 눌렀다가 땔때 이벤트 발생 - click은 눌렀다가 땔때 발생
 canvas.addEventListener("mouseleave", onMouseUp) // 마우스가 캔버스를 떠났을 때에도 onMouseUp 함수 호출 (그리지않을것이므로)
-canvas.addEventListener("touchmove", onMouseMove)
 // canvas.addEventListener("touchmove", onTouchMove)
+canvas.addEventListener("touchmove", onMouseMove)
 canvas.addEventListener("touchstart", onMouseDown) // 화면에 터치될때 이벤트 발생
 canvas.addEventListener("touchend", onMouseUp) // 화면에 터치했다가 땔때 이벤트 발생 - click은 눌렀다가 땔때 발생
-canvas.addEventListener("touchcancel", onMouseUp) // 터치가 끝났을 때에도 onMouseUp 함수 호출 (그리지않을것이므로)
+// canvas.addEventListener("touchcancel", onMouseUp, {passive: false}) // 터치가 끝났을 때에도 onMouseUp 함수 호출 (그리지않을것이므로)
 lineWidth.addEventListener("change", onLineWidthChange)
 lineWidthInput.addEventListener("change", onLineWidthChange)
 color.addEventListener("change", onColorChange)
