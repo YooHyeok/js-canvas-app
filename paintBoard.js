@@ -73,6 +73,7 @@ function onDoubleClick(event) {
     context.font = "48px serif"
     // context.fillText(text, event.offsetX, event.offsetY)
     context.strokeText(text, event.offsetX, event.offsetY)
+    // context.strokeText(text, event.touches[0].clientX, event.touches[0].clientY)
     context.restore() //최초 저장된 시점으로 돌아간다.
   }
 }
@@ -152,7 +153,30 @@ canvas.addEventListener("click", onCanvasClick) //캔버스 클릭시 백그라�
  * 마우스를 땐 상태에서는 path 좌표만 이동시킨다.
  * @param {*} event 
 */
+
 function onMouseMove(event) {
+  let pathX;
+  let pathY
+  switch (event.type) {
+    case "mousemove":
+      pathX = event.offsetX;
+      pathY = event.offsetY;
+      break;
+  
+    case "touchmove":
+      pathX = event.touches[0].clientX - canvas.offsetLeft;
+      pathY = event.touches[0].clientY - canvas.offsetTop;
+      break;
+  }
+  if (isPainting) {
+    context.lineTo(pathX, pathY);
+    context.stroke();
+    return
+  }
+  context.moveTo(pathX, pathY);
+}
+
+/* function onMouseMove(event) {
   if (isPainting) {
     context.lineTo(event.offsetX, event.offsetY);
     context.stroke();
@@ -160,6 +184,15 @@ function onMouseMove(event) {
   }
   context.moveTo(event.offsetX, event.offsetY);
 }
+
+function onTouchMove(event) {
+  if (isPainting) {
+    context.lineTo(event.touches[0].clientX - canvas.offsetLeft, event.touches[0].clientY - canvas.offsetTop);
+    context.stroke();
+    return
+  }
+  context.moveTo(event.touches[0].clientX - canvas.offsetLeft, event.touches[0].clientY - canvas.offsetTop);
+} */
 
 let isPainting = false;
 
@@ -208,6 +241,11 @@ canvas.addEventListener("mousemove", onMouseMove)
 canvas.addEventListener("mousedown", onMouseDown) // 마우스를 눌를때 이벤트 발생 - click은 눌렀다가 땔때 발생
 canvas.addEventListener("mouseup", onMouseUp) // 마우스를 눌렀다가 땔때 이벤트 발생 - click은 눌렀다가 땔때 발생
 canvas.addEventListener("mouseleave", onMouseUp) // 마우스가 캔버스를 떠났을 때에도 onMouseUp 함수 호출 (그리지않을것이므로)
+canvas.addEventListener("touchmove", onMouseMove)
+// canvas.addEventListener("touchmove", onTouchMove)
+canvas.addEventListener("touchstart", onMouseDown) // 화면에 터치될때 이벤트 발생
+canvas.addEventListener("touchend", onMouseUp) // 화면에 터치했다가 땔때 이벤트 발생 - click은 눌렀다가 땔때 발생
+canvas.addEventListener("touchcancel", onMouseUp) // 터치가 끝났을 때에도 onMouseUp 함수 호출 (그리지않을것이므로)
 lineWidth.addEventListener("change", onLineWidthChange)
 lineWidthInput.addEventListener("change", onLineWidthChange)
 color.addEventListener("change", onColorChange)
