@@ -99,6 +99,7 @@ fileInput.addEventListener("change", onFileChange)
  */
 const initBtn = document.getElementById("init-btn"); //전체 지우기 버튼
 function onInitClick() {
+  if(!confirm("현재까지 작업한 모든 내용이 초기화 됩니다. \n정말로 초기화 하시겠습니까?")) return;
   context.fillStyle = "white"
   context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 }
